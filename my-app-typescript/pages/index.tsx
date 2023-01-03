@@ -43,7 +43,7 @@ export default function Home() {
     try {
       // Get the provider from web3Modal, which in our case is MetaMask
       // No need for the Signer here, as we are only reading state from the blockchain
-      const provider = await getProviderOrSigner();
+      const provider = (await getProviderOrSigner()) as providers.Web3Provider;
       // Create an instance of NFT Contract
       const nftContract = new Contract(
         NFT_CONTRACT_ADDRESS,
@@ -96,7 +96,7 @@ export default function Home() {
     try {
       // Get the provider from web3Modal, which in our case is MetaMask
       // No need for the Signer here, as we are only reading state from the blockchain
-      const provider = await getProviderOrSigner();
+      const provider = (await getProviderOrSigner()) as providers.Web3Provider;
       // Create an instace of token contract
       const tokenContract = new Contract(
         TOKEN_CONTRACT_ADDRESS,
@@ -192,7 +192,7 @@ export default function Home() {
     try {
       // Get the provider from web3Modal, which in our case is MetaMask
       // No need for the Signer here, as we are only reading state from the blockchain
-      const provider = await getProviderOrSigner();
+      const provider = (await getProviderOrSigner()) as providers.Web3Provider;
       // Create an instance of token contract
       const tokenContract = new Contract(
         TOKEN_CONTRACT_ADDRESS,
@@ -233,7 +233,7 @@ export default function Home() {
    */
   const getOwner = async () => {
     try {
-      const provider = await getProviderOrSigner();
+      const provider = (await getProviderOrSigner()) as providers.Web3Provider;
       const tokenContract = new Contract(
         TOKEN_CONTRACT_ADDRESS,
         TOKEN_CONTRACT_ABI,

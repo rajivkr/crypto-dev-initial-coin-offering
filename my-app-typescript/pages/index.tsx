@@ -57,31 +57,31 @@ export default function Home() {
         provider
       );
       // We will get the signer now to extract the address of the currently connected MetaMask account
-      const signer = await getProviderOrSigner(true);
-      if (signer instanceof providers.JsonRpcSigner) {
-        // Get the address associated to the signer which is connected to  MetaMask
-        const address = await signer.getAddress();
-        const balance = await nftContract.balanceOf(address);
-        // balance is a Big number and thus we would compare it with Big number `zero`
-        if (balance === zero) {
-          setTokensToBeClaimed(zero);
-        } else {
-          // amount keeps track of the number of unclaimed tokens
-          var amount = 0;
-          // For all the NFT's, check if the tokens have already been claimed
-          // Only increase the amount if the tokens have not been claimed
-          // for a an NFT(for a given tokenId)
-          for (var i = 0; i < balance; i++) {
-            const tokenId = await nftContract.tokenOfOwnerByIndex(address, i);
-            const claimed = await tokenContract.tokenIdsClaimed(tokenId);
-            if (!claimed) {
-              amount++;
-            }
+      const signer = (await getProviderOrSigner(
+        true
+      )) as providers.JsonRpcSigner;
+      // Get the address associated to the signer which is connected to  MetaMask
+      const address = await signer.getAddress();
+      const balance = await nftContract.balanceOf(address);
+      // balance is a Big number and thus we would compare it with Big number `zero`
+      if (balance === zero) {
+        setTokensToBeClaimed(zero);
+      } else {
+        // amount keeps track of the number of unclaimed tokens
+        var amount = 0;
+        // For all the NFT's, check if the tokens have already been claimed
+        // Only increase the amount if the tokens have not been claimed
+        // for a an NFT(for a given tokenId)
+        for (var i = 0; i < balance; i++) {
+          const tokenId = await nftContract.tokenOfOwnerByIndex(address, i);
+          const claimed = await tokenContract.tokenIdsClaimed(tokenId);
+          if (!claimed) {
+            amount++;
           }
-          //tokensToBeClaimed has been initialized to a Big Number, thus we would convert amount
-          // to a big number and then set its value
-          setTokensToBeClaimed(BigNumber.from(amount));
         }
+        //tokensToBeClaimed has been initialized to a Big Number, thus we would convert amount
+        // to a big number and then set its value
+        setTokensToBeClaimed(BigNumber.from(amount));
       }
     } catch (err) {
       console.error(err);
@@ -104,15 +104,15 @@ export default function Home() {
         provider
       );
       // We will get the signer now to extract the address of the currently connected MetaMask account
-      const signer = await getProviderOrSigner(true);
-      if (signer instanceof providers.JsonRpcSigner) {
-        // Get the address associated to the signer which is connected to  MetaMask
-        const address = await signer.getAddress();
-        // call the balanceOf from the token contract to get the number of tokens held by the user
-        const balance = await tokenContract.balanceOf(address);
-        // balance is already a big number, so we dont need to convert it before setting it
-        setBalanceOfCryptoDevTokens(balance);
-      }
+      const signer = (await getProviderOrSigner(
+        true
+      )) as providers.JsonRpcSigner;
+      // Get the address associated to the signer which is connected to  MetaMask
+      const address = await signer.getAddress();
+      // call the balanceOf from the token contract to get the number of tokens held by the user
+      const balance = await tokenContract.balanceOf(address);
+      // balance is already a big number, so we dont need to convert it before setting it
+      setBalanceOfCryptoDevTokens(balance);
     } catch (err) {
       console.error(err);
       setBalanceOfCryptoDevTokens(zero);
@@ -242,13 +242,13 @@ export default function Home() {
       // call the owner function from the contract
       const _owner = await tokenContract.owner();
       // we get signer to extract address of currently connected Metamask account
-      const signer = await getProviderOrSigner(true);
-      if (signer instanceof providers.JsonRpcSigner) {
-        // Get the address associated to signer which is connected to Metamask
-        const address = await signer.getAddress();
-        if (address.toLowerCase() === _owner.toLowerCase()) {
-          setIsOwner(true);
-        }
+      const signer = (await getProviderOrSigner(
+        true
+      )) as providers.JsonRpcSigner;
+      // Get the address associated to signer which is connected to Metamask
+      const address = await signer.getAddress();
+      if (address.toLowerCase() === _owner.toLowerCase()) {
+        setIsOwner(true);
       }
     } catch (err) {
       console.error(err);
